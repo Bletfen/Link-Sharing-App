@@ -1,15 +1,18 @@
+import { type UseFormRegisterReturn } from "react-hook-form";
 export default function Input({
   label,
   type,
   id,
   svg,
   placeholder,
+  register,
 }: {
   label: string;
   type: string;
   id: string;
   svg: string;
   placeholder: string;
+  register: UseFormRegisterReturn;
 }) {
   return (
     <div className="flex flex-col gap-[0.4rem]">
@@ -27,6 +30,7 @@ export default function Input({
       >
         <img src={svg} alt="icon" />
         <input
+          {...register}
           id={id}
           type={type}
           placeholder={placeholder}

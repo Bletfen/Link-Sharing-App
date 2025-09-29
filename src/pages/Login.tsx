@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoIcon from "../../public/images/logo-devlinks-large.svg";
 import EmailSvg from "../../public/images/icon-email.svg";
 import PasswordSvg from "../../public/images/icon-password.svg";
 import Input from "../components/Input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch } from "../store";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { createUser } from "../features/authSlice";
+import type { RootState } from "../../src/store";
+
+interface IFormInputs {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function Login_SignUp() {
   const [isLogin, setIsLoginMode] = useState<boolean>(true);
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
+  const { register, handleSubmit } = useForm<IFormInputs>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname.includes("create-account")) {
@@ -19,6 +30,14 @@ export default function Login_SignUp() {
       setIsLoginMode(true);
     }
   }, [location.pathname]);
+
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    dispatch(createUser(data.email, data.password, data.confirmPassword));
+  };
+  const registered = useSelector(
+    (store: RootState) =>
+      store.authMode.errorEmail && store.authMode.errorPassword
+  );
 
   return (
     <div className="flex flex-col p-[3.2rem]">
@@ -40,13 +59,23 @@ export default function Login_SignUp() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-[2.4rem]">
+        <form
+          className="flex flex-col gap-[2.4rem]"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Input
             label={"Email address"}
             type={"email"}
             id={"email"}
             svg={EmailSvg}
             placeholder={"e.g. alex@email.com"}
+            register={register("email", {
+              required: "Can't be empty",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format",
+              },
+            })}
           />
           <Input
             label={isLogin ? "Password" : "Create password"}
@@ -56,6 +85,13 @@ export default function Login_SignUp() {
             placeholder={
               isLogin ? "Enter your password" : "At least .8 characters"
             }
+            register={register("password", {
+              required: "Can't be empty",
+              minLength: {
+                value: 8,
+                message: "At least 8 characters",
+              },
+            })}
           />
           {!isLogin && (
             <Input
@@ -64,6 +100,7 @@ export default function Login_SignUp() {
               id={"confirmPassword"}
               svg={PasswordSvg}
               placeholder={"At least 8 characters"}
+              register={register("confirmPassword")}
             />
           )}
           {!isLogin && (
@@ -73,7 +110,14 @@ export default function Login_SignUp() {
           )}
           <button
             className="py-[1.1rem] rounded-[0.8rem] bg-[#633cff]
-            text-[1.6rem] leading-[2.4rem] font-semibold text-white"
+            text-[1.6rem] leading-[2.4rem] font-semibold text-white
+            cursor-pointer"
+            type="submit"
+            onClick={() => {
+              if (!isLogin && registered) {
+                navigate("/");
+              }
+            }}
           >
             {isLogin ? "Login" : "Create new account"}
           </button>

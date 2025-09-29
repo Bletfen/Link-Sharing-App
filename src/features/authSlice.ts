@@ -18,7 +18,7 @@ interface User {
 
 interface AuthState {
   users: User[];
-  currentUser: {};
+  currentUser: User | {};
   errorEmail: boolean;
   errorPassword: boolean;
 }
@@ -48,38 +48,45 @@ export const loginSlice = createSlice({
         localStorage.setItem("currentUser", user.id);
       }
     },
-    createUser(
-      state,
-      action: PayloadAction<{
-        email: string;
-        password: string;
-        repeatPassword: string;
-      }>
-    ) {
-      state.errorEmail = false;
-      state.errorPassword = false;
-      const { email, password, repeatPassword } = action.payload;
-      const exists = state.users.find((u) => u.email === email);
-      if (password !== repeatPassword) {
-        state.errorPassword = true;
-        return;
-      }
-      if (exists) {
-        state.errorEmail = true;
-        return;
-      }
+    createUser: {
+      prepare(email, password, repeatPassword) {
+        return { payload: { email, password, repeatPassword } };
+      },
 
-      state.currentUser = {
-        id: crypto.randomUUID(),
-        firstName: "",
-        lastName: "",
-        avatar: "",
-        email,
-        password,
-        links: [],
-      };
-      state.users.push();
-      localStorage.setItem("users", JSON.stringify(state.users));
+      reducer(
+        state,
+        action: PayloadAction<{
+          email: string;
+          password: string;
+          repeatPassword: string;
+        }>
+      ) {
+        state.errorEmail = false;
+        state.errorPassword = false;
+        const { email, password, repeatPassword } = action.payload;
+        const exists = state.users.find((u) => u.email === email);
+        if (password !== repeatPassword) {
+          state.errorPassword = true;
+          return;
+        }
+        if (exists) {
+          state.errorEmail = true;
+          return;
+        }
+
+        const newUser = {
+          id: crypto.randomUUID(),
+          firstName: "",
+          lastName: "",
+          avatar: "",
+          email,
+          password,
+          links: [],
+        };
+        state.currentUser = newUser;
+        state.users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(state.users));
+      },
     },
     logout(state) {
       state.currentUser = {};
