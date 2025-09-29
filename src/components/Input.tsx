@@ -6,6 +6,7 @@ export default function Input({
   svg,
   placeholder,
   register,
+  error,
 }: {
   label: string;
   type: string;
@@ -13,6 +14,7 @@ export default function Input({
   svg: string;
   placeholder: string;
   register: UseFormRegisterReturn;
+  error?: string;
 }) {
   return (
     <div className="flex flex-col gap-[0.4rem]">
@@ -37,6 +39,11 @@ export default function Input({
           className="text-[1.6rem] leading-[2.4rem] text-[#333]\
               outline-none w-full"
         />
+        {error && (
+          <p className="text-[1.2rem] leading-[1.8rem] text-[#ff3939] shrink-0">
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );

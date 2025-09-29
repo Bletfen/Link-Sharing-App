@@ -21,32 +21,48 @@ interface AuthState {
   currentUser: User | {};
   errorEmail: boolean;
   errorPassword: boolean;
+  errorConfirmPassword: boolean;
 }
 
 const savedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-const savedCurrentUser = localStorage.getItem("currentUser") || "{}";
+const savedCurrentUser = JSON.parse(
+  localStorage.getItem("currentUser") || "{}"
+);
 
 const initialState: AuthState = {
   users: savedUsers,
   currentUser: savedCurrentUser,
   errorEmail: false,
   errorPassword: false,
+  errorConfirmPassword: false,
 };
 
 export const loginSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{ email: string; password: string }>) {
-      const { email, password } = action.payload;
-      const user = state.users.find(
-        (u) => u.email === email && u.password === password
-      );
-
-      if (user) {
-        state.currentUser = user.id;
-        localStorage.setItem("currentUser", user.id);
-      }
+    login: {
+      prepare(email, password) {
+        return { payload: { email, password } };
+      },
+      reducer(
+        state,
+        action: PayloadAction<{ email: string; password: string }>
+      ) {
+        state.errorPassword = false;
+        state.errorEmail = false;
+        const { email, password } = action.payload;
+        const user = state.users.find((u) => u.email === email);
+        if (!user) {
+          state.errorEmail = true;
+          return;
+        }
+        if (user.password !== password) {
+          state.errorPassword = true;
+          return;
+        }
+        state.currentUser = user;
+      },
     },
     createUser: {
       prepare(email, password, repeatPassword) {
@@ -62,11 +78,11 @@ export const loginSlice = createSlice({
         }>
       ) {
         state.errorEmail = false;
-        state.errorPassword = false;
+        state.errorConfirmPassword = false;
         const { email, password, repeatPassword } = action.payload;
         const exists = state.users.find((u) => u.email === email);
         if (password !== repeatPassword) {
-          state.errorPassword = true;
+          state.errorConfirmPassword = true;
           return;
         }
         if (exists) {
@@ -83,7 +99,6 @@ export const loginSlice = createSlice({
           password,
           links: [],
         };
-        state.currentUser = newUser;
         state.users.push(newUser);
         localStorage.setItem("users", JSON.stringify(state.users));
       },

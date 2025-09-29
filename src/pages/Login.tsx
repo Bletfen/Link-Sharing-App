@@ -7,7 +7,7 @@ import Input from "../components/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch } from "../store";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { createUser } from "../features/authSlice";
+import { createUser, login } from "../features/authSlice";
 import type { RootState } from "../../src/store";
 
 interface IFormInputs {
@@ -20,7 +20,14 @@ export default function Login_SignUp() {
   const [isLogin, setIsLoginMode] = useState<boolean>(true);
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const { register, handleSubmit } = useForm<IFormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+    clearErrors,
+  } = useForm<IFormInputs>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,16 +36,24 @@ export default function Login_SignUp() {
     } else {
       setIsLoginMode(true);
     }
+    reset();
+    clearErrors();
   }, [location.pathname]);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    dispatch(createUser(data.email, data.password, data.confirmPassword));
+    if (!isLogin) {
+      dispatch(createUser(data.email, data.password, data.confirmPassword));
+    } else {
+      dispatch(login(data.email, data.password));
+    }
   };
   const registered = useSelector(
     (store: RootState) =>
       store.authMode.errorEmail && store.authMode.errorPassword
   );
 
+  const user = useSelector((store: RootState) => store.authMode);
+  console.log(user);
   return (
     <div className="flex flex-col p-[3.2rem]">
       <div
@@ -76,6 +91,7 @@ export default function Login_SignUp() {
                 message: "Invalid email format",
               },
             })}
+            error={errors.email?.message}
           />
           <Input
             label={isLogin ? "Password" : "Create password"}
@@ -92,6 +108,7 @@ export default function Login_SignUp() {
                 message: "At least 8 characters",
               },
             })}
+            error={errors.password?.message}
           />
           {!isLogin && (
             <Input
@@ -100,7 +117,12 @@ export default function Login_SignUp() {
               id={"confirmPassword"}
               svg={PasswordSvg}
               placeholder={"At least 8 characters"}
-              register={register("confirmPassword")}
+              register={register("confirmPassword", {
+                required: "Can't be empty",
+                validate: (value) =>
+                  value === watch("password") || "Password don't match",
+              })}
+              error={errors.confirmPassword?.message}
             />
           )}
           {!isLogin && (
@@ -114,7 +136,7 @@ export default function Login_SignUp() {
             cursor-pointer"
             type="submit"
             onClick={() => {
-              if (!isLogin && registered) {
+              if (!isLogin && !registered) {
                 navigate("/");
               }
             }}
