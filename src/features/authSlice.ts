@@ -18,10 +18,7 @@ interface User {
 
 interface AuthState {
   users: User[];
-  currentUser: User | {};
-  errorEmail: boolean;
-  errorPassword: boolean;
-  errorConfirmPassword: boolean;
+  currentUser: User | null;
 }
 
 const savedUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -32,9 +29,6 @@ const savedCurrentUser = JSON.parse(
 const initialState: AuthState = {
   users: savedUsers,
   currentUser: savedCurrentUser,
-  errorEmail: false,
-  errorPassword: false,
-  errorConfirmPassword: false,
 };
 
 export const loginSlice = createSlice({
@@ -49,18 +43,11 @@ export const loginSlice = createSlice({
         state,
         action: PayloadAction<{ email: string; password: string }>
       ) {
-        state.errorPassword = false;
-        state.errorEmail = false;
         const { email, password } = action.payload;
-        const user = state.users.find((u) => u.email === email);
-        if (!user) {
-          state.errorEmail = true;
-          return;
-        }
-        if (user.password !== password) {
-          state.errorPassword = true;
-          return;
-        }
+        const user = state.users.find(
+          (u) => u.email === email && u.password === password
+        );
+        if (!user) return;
         state.currentUser = user;
       },
     },
@@ -77,19 +64,7 @@ export const loginSlice = createSlice({
           repeatPassword: string;
         }>
       ) {
-        state.errorEmail = false;
-        state.errorConfirmPassword = false;
-        const { email, password, repeatPassword } = action.payload;
-        const exists = state.users.find((u) => u.email === email);
-        if (password !== repeatPassword) {
-          state.errorConfirmPassword = true;
-          return;
-        }
-        if (exists) {
-          state.errorEmail = true;
-          return;
-        }
-
+        const { email, password } = action.payload;
         const newUser = {
           id: crypto.randomUUID(),
           firstName: "",
@@ -104,7 +79,7 @@ export const loginSlice = createSlice({
       },
     },
     logout(state) {
-      state.currentUser = {};
+      state.currentUser = null;
       localStorage.removeItem("currentUser");
     },
   },

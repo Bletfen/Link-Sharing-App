@@ -42,18 +42,17 @@ export default function Login_SignUp() {
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     if (!isLogin) {
+      navigate("/");
       dispatch(createUser(data.email, data.password, data.confirmPassword));
     } else {
       dispatch(login(data.email, data.password));
     }
   };
-  const registered = useSelector(
-    (store: RootState) =>
-      store.authMode.errorEmail && store.authMode.errorPassword
-  );
-
   const user = useSelector((store: RootState) => store.authMode);
   console.log(user);
+
+  const users = useSelector((store: RootState) => store.authMode.users);
+  console.log(errors);
   return (
     <div className="flex flex-col p-[3.2rem]">
       <div
@@ -90,6 +89,14 @@ export default function Login_SignUp() {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: "Invalid email format",
               },
+              validate: (value) => {
+                const userExists = users.some((u) => value === u.email);
+                if (isLogin) {
+                  return userExists || "Please check again";
+                } else {
+                  return !userExists || "Email already in use";
+                }
+              },
             })}
             error={errors.email?.message}
           />
@@ -106,6 +113,19 @@ export default function Login_SignUp() {
               minLength: {
                 value: 8,
                 message: "At least 8 characters",
+              },
+              validate: (value) => {
+                if (!isLogin) {
+                  return true;
+                }
+                const userExists = users.find((u) => u.password === value);
+                if (!userExists) {
+                  return "Incorrect Password";
+                }
+                const correctUser = userExists.email === watch("email");
+                if (!correctUser) {
+                  return "Incorrect Password";
+                }
               },
             })}
             error={errors.password?.message}
@@ -135,11 +155,6 @@ export default function Login_SignUp() {
             text-[1.6rem] leading-[2.4rem] font-semibold text-white
             cursor-pointer"
             type="submit"
-            onClick={() => {
-              if (!isLogin && !registered) {
-                navigate("/");
-              }
-            }}
           >
             {isLogin ? "Login" : "Create new account"}
           </button>
