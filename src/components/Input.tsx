@@ -31,7 +31,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className="text-[1.6rem] leading-[2.4rem] text-[#333]\
-              outline-none"
+              outline-none w-full"
         />
       </div>
     </div>

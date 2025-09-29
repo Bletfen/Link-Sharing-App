@@ -4,9 +4,13 @@ import LogoIcon from "../../public/images/logo-devlinks-large.svg";
 import EmailSvg from "../../public/images/icon-email.svg";
 import PasswordSvg from "../../public/images/icon-password.svg";
 import Input from "../components/Input";
+import { useDispatch } from "react-redux";
+import { type AppDispatch } from "../store";
+
 export default function Login_SignUp() {
   const [isLogin, setIsLoginMode] = useState<boolean>(true);
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (location.pathname.includes("create-account")) {
