@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { removeLink } from "../features/authSlice";
+import PlatformDropDown from "./PlatformDropDown";
 export default function LinkInput({
   id,
   index,
@@ -8,7 +9,6 @@ export default function LinkInput({
   index: number;
 }) {
   const dispatch = useDispatch();
-  console.log(index);
 
   return (
     <div className="p-[2rem] rounded-[1.2rem] bg-[#fafafa]">
@@ -32,6 +32,12 @@ export default function LinkInput({
         >
           Remove
         </p>
+      </div>
+      <div>
+        <div>
+          <p>Platform</p>
+          <PlatformDropDown />
+        </div>
       </div>
     </div>
   );
