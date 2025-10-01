@@ -1,18 +1,18 @@
 import { useDispatch } from "react-redux";
-import { removeLink, type Link } from "../features/authSlice";
+import { removeLink } from "../features/authSlice";
 import PlatformDropDown from "./PlatformDropDown";
 import { useState } from "react";
 
 export default function LinkInput({
   id,
   index,
-  fields,
-  setFields,
+  linkData,
+  setLinkData,
 }: {
   id: string;
   index: number;
-  fields: Link[];
-  setFields: React.Dispatch<React.SetStateAction<Link[]>>;
+  linkData: ILinkData;
+  setLinkData: React.Dispatch<React.SetStateAction<ILinkData>>;
 }) {
   const dispatch = useDispatch();
   const [chosenPlatform, setChosenPlatform] = useState<{
@@ -56,8 +56,8 @@ export default function LinkInput({
         <PlatformDropDown
           chosenPlatform={chosenPlatform}
           setChosenPlatform={setChosenPlatform}
-          fields={fields}
-          setFields={setFields}
+          linkData={linkData}
+          setLinkData={setLinkData}
         />
       </div>
       <div>
@@ -84,11 +84,9 @@ export default function LinkInput({
             placeholder={chosenPlatform.placeholder}
             className="text-[1.6rem] text-[#333] leading-[2.4rem]
               w-full outline-none"
-            onChange={(e) => {
-              const newFields = [...fields];
-              newFields[index] = { ...newFields[index], url: e.target.value };
-              setFields(newFields);
-            }}
+            onChange={(e) =>
+              setLinkData({ ...linkData, id, url: e.target.value })
+            }
           />
         </div>
       </div>

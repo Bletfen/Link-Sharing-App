@@ -1,11 +1,10 @@
 import { useState } from "react";
 import PlatfromsData from "../platformsData.json";
-import type { Link } from "../features/authSlice";
 export default function PlatformDropDown({
   chosenPlatform,
   setChosenPlatform,
-  fields,
-  setFields,
+  linkData,
+  setLinkData,
 }: {
   chosenPlatform: {
     name: string;
@@ -19,8 +18,8 @@ export default function PlatformDropDown({
       placeholder: string;
     }>
   >;
-  fields: Link[];
-  setFields: React.Dispatch<React.SetStateAction<Link[]>>;
+  linkData: ILinkData;
+  setLinkData: React.Dispatch<React.SetStateAction<ILinkData>>;
 }) {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
   console.log(PlatfromsData.platfroms.length - 1);
@@ -65,13 +64,11 @@ export default function PlatformDropDown({
                     placeholder: item.placeholder,
                   };
                   setChosenPlatform(selected);
-                  const newFields = [...fields];
-                  newFields[index] = {
-                    ...newFields[index],
-                    platform: chosenPlatform.name,
-                    img: chosenPlatform.img,
-                  };
-                  setFields(newFields);
+                  setLinkData({
+                    ...linkData,
+                    platform: selected.name,
+                    img: selected.img,
+                  });
                   setShowDropDown(false);
                 }}
               >

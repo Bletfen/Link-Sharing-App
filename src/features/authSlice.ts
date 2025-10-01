@@ -106,10 +106,31 @@ export const loginSlice = createSlice({
         (link) => link.id !== id
       );
     },
+    updateLinkData: {
+      prepare(link: ILinkData) {
+        return { payload: link };
+      },
+      reducer(state, action: PayloadAction<ILinkData>) {
+        if (!state.currentUser) return;
+        const { id, url, platform, img } = action.payload;
+        const user = state.currentUser.links.find((u) => u.id === id);
+        if (user) {
+          user.url = url;
+          user.platform = platform;
+          user.img = img;
+        }
+      },
+    },
   },
 });
 
-export const { login, createUser, logout, addLink, removeLink } =
-  loginSlice.actions;
+export const {
+  login,
+  createUser,
+  logout,
+  addLink,
+  removeLink,
+  updateLinkData,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -26,7 +26,7 @@ export default function AddLink({
         px-[2.7rem] py-[1.1rem] text-[1.6rem] text-[#633cff] leading-[2.4rem]
         font-semibold cursor-pointer"
         onClick={() => {
-          dispatch(addLink("", "", ""));
+          dispatch(addLink("GitHub", "", "/images/icon-github.svg"));
           setSaveButton(true);
         }}
       >

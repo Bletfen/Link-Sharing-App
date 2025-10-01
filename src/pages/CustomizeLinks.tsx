@@ -1,18 +1,27 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../src/store";
 import EmptyLinks from "../components/EmptyLinks";
 import AddLink from "../components/AddLink";
 import SaveButton from "../components/SaveButton";
 import LinkInput from "../components/LinkInput";
 import { useState } from "react";
-import type { Link } from "../features/authSlice";
 
 export default function CustomizeLinks() {
   const [saveButton, setSaveButton] = useState<boolean>(false);
-  const [fields, setFields] = useState<Link[]>([]);
+  const [linkData, setLinkData] = useState<ILinkData>({
+    id: "",
+    url: "",
+    platform: "",
+    img: "",
+  });
+  const dispatch = useDispatch();
   const links = useSelector(
     (store: RootState) => store.authMode.currentUser?.links
   );
+  const currentUser = useSelector((store: RootState) => {
+    return store.authMode.currentUser;
+  });
+  console.log(currentUser);
 
   return (
     <div className="p-[1.6rem] bg-[#fafafa] min-h-screen">
@@ -25,14 +34,18 @@ export default function CustomizeLinks() {
               <LinkInput
                 id={link.id}
                 index={index}
-                fields={fields}
-                setFields={setFields}
+                linkData={linkData}
+                setLinkData={setLinkData}
               />
             </div>
           ))}
         </div>
         <div className="w-full h-px bg-[#d9d9d9] mt-[2.4rem]"></div>
-        <SaveButton saveButton={saveButton} />
+        <SaveButton
+          saveButton={saveButton}
+          dispatch={dispatch}
+          linkData={linkData}
+        />
       </div>
     </div>
   );
