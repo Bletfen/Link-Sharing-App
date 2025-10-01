@@ -1,4 +1,8 @@
+import { useDispatch } from "react-redux";
+import { addLink } from "../features/authSlice";
+
 export default function AddLink() {
+  const dispatch = useDispatch();
   return (
     <div
       className="flex flex-col gap-[4rem] mb-[2.4rem]
@@ -17,6 +21,7 @@ export default function AddLink() {
         className="border border-[#633cff] w-full text-center rounded-[0.8rem]
         px-[2.7rem] py-[1.1rem] text-[1.6rem] text-[#633cff] leading-[2.4rem]
         font-semibold cursor-pointer"
+        onClick={() => dispatch(addLink("", ""))}
       >
         + Add new link
       </button>

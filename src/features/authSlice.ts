@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface Link {
   id: string;
-  type: string;
+  platform: string;
   url: string;
 }
 
@@ -83,9 +83,31 @@ export const loginSlice = createSlice({
       state.currentUser = null;
       localStorage.removeItem("currentUser");
     },
+    addLink: {
+      prepare(platform: string, url: string) {
+        return { payload: { id: crypto.randomUUID(), platform, url } };
+      },
+      reducer(state, action: PayloadAction<Link>) {
+        const { id, platform, url } = action.payload;
+        if (!state.currentUser) return;
+        state.currentUser.links.push({
+          id: id,
+          platform,
+          url,
+        });
+      },
+    },
+    removeLink(state, action) {
+      if (!state.currentUser) return;
+      const id = action.payload;
+      state.currentUser.links = state.currentUser.links.filter(
+        (link) => link.id !== id
+      );
+    },
   },
 });
 
-export const { login, createUser, logout } = loginSlice.actions;
+export const { login, createUser, logout, addLink, removeLink } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;
