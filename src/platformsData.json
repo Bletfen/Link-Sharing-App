@@ -2,59 +2,73 @@
   "platfroms": [
     {
       "name": "GitHub",
-      "img": "/images/icon-github.svg"
+      "img": "/images/icon-github.svg",
+      "placeholder": "e.g. https://www.github.com/johnappleseed"
     },
     {
       "name": "Frontend Mentor",
-      "img": "/images/icon-frontend-mentor.svg"
+      "img": "/images/icon-frontend-mentor.svg",
+      "placeholder": "e.g. https://www.frontendmentor.io/johnappleseed"
     },
     {
       "name": "Twitter",
-      "img": "/images/icon-twitter.svg"
+      "img": "/images/icon-twitter.svg",
+      "placeholder": "e.g. https://www.x.com/johnappleseed"
     },
     {
       "name": "LinkedIn",
-      "img": "/images/icon-linkedin.svg"
+      "img": "/images/icon-linkedin.svg",
+      "placeholder": "e.g. https://www.linkedin.com/johnappleseed"
     },
     {
       "name": "YouTube",
-      "img": "/images/icon-youtube.svg"
+      "img": "/images/icon-youtube.svg",
+      "placeholder": "e.g. https://www.youtube.com/johnappleseed"
     },
     {
       "name": "Facebook",
-      "img": "/images/icon-facebook.svg"
+      "img": "/images/icon-facebook.svg",
+      "placeholder": "e.g. https://www.facebook.com/johnappleseed"
     },
     {
       "name": "Twitch",
-      "img": "/images/icon-twitch.svg"
+      "img": "/images/icon-twitch.svg",
+      "placeholder": "e.g. https://www.twitch.com/johnappleseed"
     },
     {
       "name": "Dev.to",
-      "img": "/images/icon-devto.svg"
+      "img": "/images/icon-devto.svg",
+      "placeholder": "e.g. https://www.dev.to/johnappleseed"
     },
     {
       "name": "Codewars",
-      "img": "/images/icon-codewars.svg"
+      "img": "/images/icon-codewars.svg",
+      "placeholder": "e.g. https://www.codewars.com/johnappleseed"
     },
     {
       "name": "Codepen",
-      "img": "/images/icon-codepen.svg"
+      "img": "/images/icon-codepen.svg",
+      "placeholder": "e.g. https://www.codepen.io/johnappleseed"
     },
     {
       "name": "freeCodeCamp",
-      "img": "/images/icon-freecodecamp.svg"
+      "img": "/images/icon-freecodecamp.svg",
+      "placeholder": "e.g. https://www.freecodecamp.org/johnappleseed"
     },
     {
       "name": "GitLab",
-      "img": "/images/icon-gitlab.svg"
+      "img": "/images/icon-gitlab.svg",
+      "placeholder": "e.g. https://www.gitlab.com/johnappleseed"
     },
     {
       "name": "Hashnode",
-      "img": "/images/icon-hashnode.svg"
+      "img": "/images/icon-hashnode.svg",
+      "placeholder": "e.g. https://www.hashnode.com/johnappleseed"
     },
     {
       "name": "Stack Overflow",
-      "img": "/images/icon-stack-overflow.svg"
+      "img": "/images/icon-stack-overflow.svg",
+      "placeholder": "e.g. https://www.stackoverflow.com/johnappleseed"
     }
   ]
 }

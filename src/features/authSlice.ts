@@ -1,9 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface Link {
+export interface Link {
   id: string;
   platform: string;
   url: string;
+  img: string;
 }
 
 interface User {
@@ -84,16 +85,17 @@ export const loginSlice = createSlice({
       localStorage.removeItem("currentUser");
     },
     addLink: {
-      prepare(platform: string, url: string) {
-        return { payload: { id: crypto.randomUUID(), platform, url } };
+      prepare(platform: string, url: string, img: string) {
+        return { payload: { id: crypto.randomUUID(), platform, url, img } };
       },
       reducer(state, action: PayloadAction<Link>) {
-        const { id, platform, url } = action.payload;
+        const { id, platform, url, img } = action.payload;
         if (!state.currentUser) return;
         state.currentUser.links.push({
           id: id,
           platform,
           url,
+          img,
         });
       },
     },
