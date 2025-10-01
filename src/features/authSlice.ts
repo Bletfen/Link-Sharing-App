@@ -49,6 +49,7 @@ export const loginSlice = createSlice({
         );
         if (!user) return;
         state.currentUser = user;
+        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
       },
     },
     createUser: {

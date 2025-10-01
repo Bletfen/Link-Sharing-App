@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LogoIcon from "../../public/images/logo-devlinks-large.svg";
 import EmailSvg from "../../public/images/icon-email.svg";
 import PasswordSvg from "../../public/images/icon-password.svg";
@@ -18,7 +18,6 @@ interface IFormInputs {
 
 export default function Login_SignUp() {
   const [isLogin, setIsLoginMode] = useState<boolean>(true);
-  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const {
     register,
@@ -31,21 +30,17 @@ export default function Login_SignUp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname.includes("create-account")) {
-      setIsLoginMode(false);
-    } else {
-      setIsLoginMode(true);
-    }
     reset();
     clearErrors();
-  }, [location.pathname]);
+  }, [isLogin]);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     if (!isLogin) {
-      navigate("/");
+      setIsLoginMode(true);
       dispatch(createUser(data.email, data.password, data.confirmPassword));
     } else {
       dispatch(login(data.email, data.password));
+      navigate("/customize-links");
     }
   };
   const user = useSelector((store: RootState) => store.authMode);
@@ -162,16 +157,22 @@ export default function Login_SignUp() {
             {isLogin ? (
               <p className="text-[#737373]">
                 Don't have an account? <br />
-                <Link to={"create-account"} className="text-[#633cff]">
+                <p
+                  className="text-[#633cff] cursor-pointer"
+                  onClick={() => setIsLoginMode(false)}
+                >
                   Create account
-                </Link>
+                </p>
               </p>
             ) : (
               <p className="text-[#737373]">
                 Already have an account? <br />
-                <Link to={"/"} className="text-[#633cff]">
+                <p
+                  className="text-[#633cff] cursor-pointer"
+                  onClick={() => setIsLoginMode(true)}
+                >
                   Login
-                </Link>
+                </p>
               </p>
             )}
           </div>
