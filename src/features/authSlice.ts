@@ -84,21 +84,6 @@ export const loginSlice = createSlice({
       state.currentUser = null;
       localStorage.removeItem("currentUser");
     },
-    addLink: {
-      prepare(platform: string, url: string, img: string) {
-        return { payload: { id: crypto.randomUUID(), platform, url, img } };
-      },
-      reducer(state, action: PayloadAction<Link>) {
-        const { id, platform, url, img } = action.payload;
-        if (!state.currentUser) return;
-        state.currentUser.links.push({
-          id: id,
-          platform,
-          url,
-          img,
-        });
-      },
-    },
     removeLink(state, action) {
       if (!state.currentUser) return;
       const id = action.payload;
@@ -107,30 +92,19 @@ export const loginSlice = createSlice({
       );
     },
     updateLinkData: {
-      prepare(link: ILinkData) {
+      prepare(link: ILinkData[]) {
         return { payload: link };
       },
-      reducer(state, action: PayloadAction<ILinkData>) {
+      reducer(state, action: PayloadAction<ILinkData[]>) {
         if (!state.currentUser) return;
-        const { id, url, platform, img } = action.payload;
-        const user = state.currentUser.links.find((u) => u.id === id);
-        if (user) {
-          user.url = url;
-          user.platform = platform;
-          user.img = img;
-        }
+        const link = action.payload;
+        state.currentUser.links = link;
       },
     },
   },
 });
 
-export const {
-  login,
-  createUser,
-  logout,
-  addLink,
-  removeLink,
-  updateLinkData,
-} = loginSlice.actions;
+export const { login, createUser, logout, removeLink, updateLinkData } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -1,12 +1,10 @@
-import { useDispatch } from "react-redux";
-import { addLink } from "../features/authSlice";
-
 export default function AddLink({
   setSaveButton,
+  addLinkField,
 }: {
   setSaveButton: React.Dispatch<React.SetStateAction<boolean>>;
+  addLinkField: () => void;
 }) {
-  const dispatch = useDispatch();
   return (
     <div
       className="flex flex-col gap-[4rem] mb-[2.4rem]
@@ -26,7 +24,7 @@ export default function AddLink({
         px-[2.7rem] py-[1.1rem] text-[1.6rem] text-[#633cff] leading-[2.4rem]
         font-semibold cursor-pointer"
         onClick={() => {
-          dispatch(addLink("GitHub", "", "/images/icon-github.svg"));
+          addLinkField();
           setSaveButton(true);
         }}
       >

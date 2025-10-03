@@ -3,8 +3,6 @@ import PlatfromsData from "../platformsData.json";
 export default function PlatformDropDown({
   chosenPlatform,
   setChosenPlatform,
-  linkData,
-  setLinkData,
 }: {
   chosenPlatform: {
     name: string;
@@ -18,8 +16,6 @@ export default function PlatformDropDown({
       placeholder: string;
     }>
   >;
-  linkData: ILinkData;
-  setLinkData: React.Dispatch<React.SetStateAction<ILinkData>>;
 }) {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
   console.log(PlatfromsData.platfroms.length - 1);
@@ -64,11 +60,11 @@ export default function PlatformDropDown({
                     placeholder: item.placeholder,
                   };
                   setChosenPlatform(selected);
-                  setLinkData({
-                    ...linkData,
-                    platform: selected.name,
-                    img: selected.img,
-                  });
+                  // setLinkData({
+                  //   ...linkData,
+                  //   platform: selected.name,
+                  //   img: selected.img,
+                  // });
                   setShowDropDown(false);
                 }}
               >

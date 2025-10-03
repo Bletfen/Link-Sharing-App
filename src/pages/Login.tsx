@@ -43,11 +43,8 @@ export default function Login_SignUp() {
       navigate("/customize-links");
     }
   };
-  const user = useSelector((store: RootState) => store.authMode);
-  console.log(user);
-
   const users = useSelector((store: RootState) => store.authMode.users);
-  console.log(errors);
+
   return (
     <div className="flex flex-col p-[3.2rem]">
       <div

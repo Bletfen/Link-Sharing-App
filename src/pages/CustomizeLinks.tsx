@@ -9,10 +9,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { linkValidators } from "../linkValidation";
 import { updateLinkData } from "../features/authSlice";
 
-interface ILinkForm {
-  link: string;
-}
-
 export default function CustomizeLinks() {
   const {
     register,
@@ -20,12 +16,6 @@ export default function CustomizeLinks() {
     formState: { errors },
   } = useForm<ILinkForm>();
   const [saveButton, setSaveButton] = useState<boolean>(false);
-  const [linkData, setLinkData] = useState<ILinkData>({
-    id: "",
-    url: "",
-    platform: "",
-    img: "",
-  });
   const [chosenPlatform, setChosenPlatform] = useState<{
     name: string;
     img: string;
@@ -39,6 +29,19 @@ export default function CustomizeLinks() {
   const links = useSelector(
     (store: RootState) => store.authMode.currentUser?.links
   );
+  const [linkData, setLinkData] = useState<ILinkData[]>(links ?? []);
+  const addLinkField = () => {
+    return setLinkData((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        platform: "GitHub",
+        url: "",
+        img: "/images/icon-github.svg",
+      },
+    ]);
+  };
+
   const currentUser = useSelector((store: RootState) => {
     return store.authMode.currentUser;
   });
@@ -46,30 +49,31 @@ export default function CustomizeLinks() {
     dispatch(updateLinkData(linkData));
   };
   console.log(currentUser);
+  console.log(linkData);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="p-[1.6rem] bg-[#fafafa] min-h-screen">
         <div className="bg-white rounded-[1.2rem]">
-          <AddLink setSaveButton={setSaveButton} />
-          {links?.length === 0 && <EmptyLinks />}
+          <AddLink setSaveButton={setSaveButton} addLinkField={addLinkField} />
+          {linkData?.length === 0 && <EmptyLinks />}
           <div className="flex flex-col gap-[2.4rem]">
-            {links?.map((link, index) => (
+            {linkData?.map((link, index) => (
               <div key={link.id} className="px-[2.4rem]">
                 <LinkInput
                   id={link.id}
                   index={index}
-                  linkData={linkData}
-                  setLinkData={setLinkData}
                   chosenPlatform={chosenPlatform}
                   setChosenPlatform={setChosenPlatform}
-                  register={register("link", {
+                  register={register(`links.${index}.url`, {
                     required: "Can't be empty",
                     validate: (value) =>
                       linkValidators[chosenPlatform.name]?.test(value) ||
                       "Please check the URL",
                   })}
-                  error={errors.link?.message}
+                  error={errors.links?.[index]?.url?.message}
+                  value={link.url}
+                  setLinkData={setLinkData}
                 />
               </div>
             ))}

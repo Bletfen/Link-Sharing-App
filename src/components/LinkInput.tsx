@@ -1,33 +1,17 @@
 import { useDispatch } from "react-redux";
 import { removeLink } from "../features/authSlice";
 import PlatformDropDown from "./PlatformDropDown";
-import type { UseFormRegisterReturn } from "react-hook-form";
 
 export default function LinkInput({
   id,
   index,
-  linkData,
-  setLinkData,
   chosenPlatform,
   setChosenPlatform,
   register,
   error,
-}: {
-  id: string;
-  index: number;
-  linkData: ILinkData;
-  setLinkData: React.Dispatch<React.SetStateAction<ILinkData>>;
-  chosenPlatform: { name: string; img: string; placeholder: string };
-  setChosenPlatform: React.Dispatch<
-    React.SetStateAction<{
-      name: string;
-      img: string;
-      placeholder: string;
-    }>
-  >;
-  register: UseFormRegisterReturn<"link">;
-  error?: string;
-}) {
+  value,
+  setLinkData,
+}: LinkInputProps) {
   const dispatch = useDispatch();
   return (
     <div
@@ -60,8 +44,6 @@ export default function LinkInput({
         <PlatformDropDown
           chosenPlatform={chosenPlatform}
           setChosenPlatform={setChosenPlatform}
-          linkData={linkData}
-          setLinkData={setLinkData}
         />
       </div>
       <div>
@@ -86,6 +68,7 @@ export default function LinkInput({
             </svg>
             <input
               {...register}
+              value={value}
               type="text"
               placeholder={chosenPlatform.placeholder}
               className="text-[1.6rem] text-[#333] leading-[2.4rem]
