@@ -3,20 +3,8 @@ import PlatfromsData from "../platformsData.json";
 export default function PlatformDropDown({
   chosenPlatform,
   setChosenPlatform,
-}: {
-  chosenPlatform: {
-    name: string;
-    img: string;
-    placeholder: string;
-  };
-  setChosenPlatform: React.Dispatch<
-    React.SetStateAction<{
-      name: string;
-      img: string;
-      placeholder: string;
-    }>
-  >;
-}) {
+  onPlatformChange,
+}: IPlatformDropDownProps) {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
   console.log(PlatfromsData.platfroms.length - 1);
   return (
@@ -60,11 +48,7 @@ export default function PlatformDropDown({
                     placeholder: item.placeholder,
                   };
                   setChosenPlatform(selected);
-                  // setLinkData({
-                  //   ...linkData,
-                  //   platform: selected.name,
-                  //   img: selected.img,
-                  // });
+                  onPlatformChange(item.name, item.img);
                   setShowDropDown(false);
                 }}
               >

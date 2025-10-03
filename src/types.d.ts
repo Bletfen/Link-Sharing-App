@@ -6,7 +6,10 @@ interface ILinkData {
 }
 
 interface ILinkItem {
+  id: string;
   url: string;
+  platform: string;
+  img: string;
 }
 
 interface ILinkForm {
@@ -16,7 +19,17 @@ interface ILinkForm {
 interface LinkInputProps {
   id: string;
   index: number;
-  chosenPlatform: { name: string; img: string; placeholder: string };
+  register: UseFormRegisterReturn;
+  error?: string;
+  onPlatformChange: (platfrom: string, img: string) => void;
+}
+
+interface IPlatformDropDownProps {
+  chosenPlatform: {
+    name: string;
+    img: string;
+    placeholder: string;
+  };
   setChosenPlatform: React.Dispatch<
     React.SetStateAction<{
       name: string;
@@ -24,8 +37,5 @@ interface LinkInputProps {
       placeholder: string;
     }>
   >;
-  register: UseFormRegisterReturn;
-  error?: string;
-  value: string;
-  setLinkData: React.Dispatch<React.SetStateAction<ILinkData[]>>;
+  onPlatformChange: (platfrom: string, img: string) => void;
 }

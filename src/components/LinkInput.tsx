@@ -1,18 +1,25 @@
 import { useDispatch } from "react-redux";
 import { removeLink } from "../features/authSlice";
 import PlatformDropDown from "./PlatformDropDown";
+import { useState } from "react";
 
 export default function LinkInput({
   id,
   index,
-  chosenPlatform,
-  setChosenPlatform,
   register,
   error,
-  value,
-  setLinkData,
+  onPlatformChange,
 }: LinkInputProps) {
   const dispatch = useDispatch();
+  const [chosenPlatform, setChosenPlatform] = useState<{
+    name: string;
+    img: string;
+    placeholder: string;
+  }>({
+    name: "GitHub",
+    img: "/images/icon-github.svg",
+    placeholder: "e.g. https://www.github.com/johnappleseed",
+  });
   return (
     <div
       className="p-[2rem] rounded-[1.2rem] bg-[#fafafa]
@@ -44,6 +51,7 @@ export default function LinkInput({
         <PlatformDropDown
           chosenPlatform={chosenPlatform}
           setChosenPlatform={setChosenPlatform}
+          onPlatformChange={onPlatformChange}
         />
       </div>
       <div>
@@ -68,14 +76,10 @@ export default function LinkInput({
             </svg>
             <input
               {...register}
-              value={value}
               type="text"
               placeholder={chosenPlatform.placeholder}
               className="text-[1.6rem] text-[#333] leading-[2.4rem]
               w-full outline-none"
-              onChange={(e) =>
-                setLinkData({ ...linkData, id, url: e.target.value })
-              }
             />
           </div>
           {error && <p>{error}</p>}
