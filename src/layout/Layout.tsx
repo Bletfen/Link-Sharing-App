@@ -9,6 +9,9 @@ export default function Layout() {
     if (!user) {
       navigate("/login");
     }
+    if (localStorage.getItem("currentUser")) {
+      navigate("/customize-links");
+    }
   }, []);
   return (
     <div>
