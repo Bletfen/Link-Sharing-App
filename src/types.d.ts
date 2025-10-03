@@ -22,6 +22,7 @@ interface LinkInputProps {
   register: UseFormRegisterReturn;
   error?: string;
   onPlatformChange: (platfrom: string, img: string) => void;
+  removeLink: (id: string) => void;
 }
 
 interface IPlatformDropDownProps {

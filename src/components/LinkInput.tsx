@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { removeLink } from "../features/authSlice";
 import PlatformDropDown from "./PlatformDropDown";
 import { useState } from "react";
 
@@ -9,8 +7,8 @@ export default function LinkInput({
   register,
   error,
   onPlatformChange,
+  removeLink,
 }: LinkInputProps) {
-  const dispatch = useDispatch();
   const [chosenPlatform, setChosenPlatform] = useState<{
     name: string;
     img: string;
@@ -41,7 +39,7 @@ export default function LinkInput({
         <p
           className="text-[1.6rem] leading-[2.4rem] 
           text-[#737373] cursor-pointer"
-          onClick={() => dispatch(removeLink(id))}
+          onClick={() => removeLink(id)}
         >
           Remove
         </p>

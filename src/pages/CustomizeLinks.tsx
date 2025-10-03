@@ -4,12 +4,15 @@ import EmptyLinks from "../components/EmptyLinks";
 import AddLink from "../components/AddLink";
 import SaveButton from "../components/SaveButton";
 import LinkInput from "../components/LinkInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type Path, type SubmitHandler } from "react-hook-form";
 import { linkValidators } from "../linkValidation";
 import { updateLinkData } from "../features/authSlice";
 
 export default function CustomizeLinks() {
+  const links = useSelector(
+    (store: RootState) => store.authMode.currentUser?.links
+  );
   const {
     register,
     handleSubmit,
@@ -18,9 +21,19 @@ export default function CustomizeLinks() {
     watch,
   } = useForm<ILinkForm>({
     defaultValues: {
-      links: [],
+      links: links || [],
     },
   });
+  useEffect(() => {
+    if (links) {
+      links.forEach((link, index) => {
+        setValue(`links.${index}.id`, link.id);
+        setValue(`links.${index}.platform`, link.platform);
+        setValue(`links.${index}.url`, link.url);
+        setValue(`links.${index}.img`, link.img);
+      });
+    }
+  }, [links, setValue]);
   const linksWatch = watch("links");
 
   const [saveButton, setSaveButton] = useState<boolean>(false);
@@ -40,6 +53,12 @@ export default function CustomizeLinks() {
   });
   const onSubmit: SubmitHandler<ILinkForm> = (data) => {
     dispatch(updateLinkData(data.links));
+    setSaveButton(false);
+  };
+  const removeLink = (id: string) => {
+    const updatedLinks = linksWatch.filter((link) => link.id !== id);
+    setValue("links", updatedLinks);
+    dispatch(updateLinkData(updatedLinks));
     setSaveButton(false);
   };
   console.log(currentUser);
@@ -76,6 +95,7 @@ export default function CustomizeLinks() {
                     setValue(`links.${index}.img`, img);
                     setSaveButton(true);
                   }}
+                  removeLink={removeLink}
                 />
               </div>
             ))}

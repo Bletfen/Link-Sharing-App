@@ -84,13 +84,6 @@ export const loginSlice = createSlice({
       state.currentUser = null;
       localStorage.removeItem("currentUser");
     },
-    removeLink(state, action) {
-      if (!state.currentUser) return;
-      const id = action.payload;
-      state.currentUser.links = state.currentUser.links.filter(
-        (link) => link.id !== id
-      );
-    },
     updateLinkData: {
       prepare(link: ILinkData[]) {
         return { payload: link };
@@ -99,12 +92,13 @@ export const loginSlice = createSlice({
         if (!state.currentUser) return;
         const link = action.payload;
         state.currentUser.links = link;
+        localStorage.setItem("users", JSON.stringify(state.users));
+        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
       },
     },
   },
 });
 
-export const { login, createUser, logout, removeLink, updateLinkData } =
-  loginSlice.actions;
+export const { login, createUser, logout, updateLinkData } = loginSlice.actions;
 
 export default loginSlice.reducer;
