@@ -1,3 +1,5 @@
+import ProfileInputs from "../components/ProfileInputs";
+import SaveButton from "../components/SaveButton";
 import UploadImg from "../components/UploadImg";
 
 export default function ProfileSettings() {
@@ -12,10 +14,13 @@ export default function ProfileSettings() {
             Add your details to create a personal touch to your profile.
           </p>
         </div>
-        <div>
+        <div className="flex flex-col gap-[2.4rem]">
           <UploadImg />
+          <ProfileInputs />
         </div>
       </div>
+      <div className="w-full h-px bg-[#d9d9d9] mt-[2.4rem]"></div>
+      <SaveButton formId={"updateInitials"} />
     </div>
   );
 }

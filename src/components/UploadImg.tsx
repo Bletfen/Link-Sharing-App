@@ -107,6 +107,3 @@ export default function UploadImg() {
     </div>
   );
 }
-/*
-profile details in progress
-*/

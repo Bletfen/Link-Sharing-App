@@ -4,10 +4,10 @@ import EmptyLinks from "../components/EmptyLinks";
 import AddLink from "../components/AddLink";
 import SaveButton from "../components/SaveButton";
 import LinkInput from "../components/LinkInput";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, type Path, type SubmitHandler } from "react-hook-form";
 import { linkValidators } from "../linkValidation";
-import { updateLinkData } from "../features/authSlice";
+import { saveUpdate, updateLinkData } from "../features/authSlice";
 
 export default function CustomizeLinks() {
   const links = useSelector(
@@ -36,7 +36,6 @@ export default function CustomizeLinks() {
   }, [links, setValue]);
   const linksWatch = watch("links");
 
-  const [saveButton, setSaveButton] = useState<boolean>(false);
   const dispatch = useDispatch();
   const addLinkField = () => {
     const newLink: ILinkData = {
@@ -48,31 +47,28 @@ export default function CustomizeLinks() {
     setValue("links", [...linksWatch, newLink]);
   };
 
-  const currentUser = useSelector((store: RootState) => {
-    return store.authMode.currentUser;
-  });
   const onSubmit: SubmitHandler<ILinkForm> = (data) => {
     dispatch(updateLinkData(data.links));
-    setSaveButton(false);
   };
   const removeLink = (id: string) => {
     const updatedLinks = linksWatch.filter((link) => link.id !== id);
     setValue("links", updatedLinks);
     dispatch(updateLinkData(updatedLinks));
-    setSaveButton(false);
   };
-  console.log(currentUser);
-  console.log(linksWatch);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <div className="p-[1.6rem] bg-[#fafafa] min-h-screen">
         <div className="bg-white rounded-[1.2rem]">
-          <AddLink setSaveButton={setSaveButton} addLinkField={addLinkField} />
+          <AddLink addLinkField={addLinkField} />
 
           {linksWatch?.length === 0 && <EmptyLinks />}
 
-          <div className="flex flex-col gap-[2.4rem]">
+          <form
+            id="updateLinks"
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-[2.4rem]"
+          >
             {linksWatch?.map((link, index) => (
               <div key={link.id} className="px-[2.4rem]">
                 <LinkInput
@@ -93,17 +89,17 @@ export default function CustomizeLinks() {
                   onPlatformChange={(platfrom: string, img: string) => {
                     setValue(`links.${index}.platform`, platfrom);
                     setValue(`links.${index}.img`, img);
-                    setSaveButton(true);
+                    dispatch(saveUpdate());
                   }}
                   removeLink={removeLink}
                 />
               </div>
             ))}
-          </div>
+          </form>
           <div className="w-full h-px bg-[#d9d9d9] mt-[2.4rem]"></div>
-          <SaveButton saveButton={saveButton} />
+          <SaveButton formId={"updateLinks"} />
         </div>
       </div>
-    </form>
+    </div>
   );
 }

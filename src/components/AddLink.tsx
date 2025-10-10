@@ -1,10 +1,13 @@
+import { useDispatch } from "react-redux";
+import { saveUpdate } from "../features/authSlice";
+
 export default function AddLink({
-  setSaveButton,
   addLinkField,
 }: {
-  setSaveButton: React.Dispatch<React.SetStateAction<boolean>>;
   addLinkField: () => void;
 }) {
+  const dispatch = useDispatch();
+
   return (
     <div
       className="flex flex-col gap-[4rem] mb-[2.4rem]
@@ -25,7 +28,7 @@ export default function AddLink({
         font-semibold cursor-pointer"
         onClick={() => {
           addLinkField();
-          setSaveButton(true);
+          dispatch(saveUpdate());
         }}
       >
         + Add new link

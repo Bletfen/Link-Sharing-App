@@ -20,6 +20,7 @@ interface User {
 interface AuthState {
   users: User[];
   currentUser: User | null;
+  save: boolean;
 }
 
 const savedUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -30,6 +31,7 @@ const savedCurrentUser = JSON.parse(
 const initialState: AuthState = {
   users: savedUsers,
   currentUser: savedCurrentUser,
+  save: false,
 };
 
 export const loginSlice = createSlice({
@@ -94,6 +96,7 @@ export const loginSlice = createSlice({
         state.currentUser.links = link;
         localStorage.setItem("users", JSON.stringify(state.users));
         localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+        state.save = false;
       },
     },
     updateImg(state, action) {
@@ -112,10 +115,53 @@ export const loginSlice = createSlice({
       localStorage.setItem("users", JSON.stringify(state.users));
       localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
     },
+    updateInitials: {
+      prepare(firstName, lastName, email) {
+        return { payload: { firstName, lastName, email } };
+      },
+      reducer(
+        state,
+        action: PayloadAction<{
+          firstName: string;
+          lastName: string;
+          email: string;
+        }>
+      ) {
+        if (!state.currentUser) return;
+        const { firstName, lastName, email } = action.payload;
+        state.currentUser.firstName = firstName;
+        state.currentUser.lastName = lastName;
+        state.currentUser.email = email;
+        const userIndex = state.users.findIndex(
+          (u) => u.id === state.currentUser?.id
+        );
+        if (userIndex !== -1) {
+          state.users[userIndex] = {
+            ...state.users[userIndex],
+            firstName,
+            lastName,
+            email,
+          };
+        }
+        localStorage.setItem("users", JSON.stringify(state.users));
+        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+        state.save = false;
+      },
+    },
+    saveUpdate(state) {
+      state.save = true;
+    },
   },
 });
 
-export const { login, createUser, logout, updateLinkData, updateImg } =
-  loginSlice.actions;
+export const {
+  login,
+  createUser,
+  logout,
+  updateLinkData,
+  updateImg,
+  updateInitials,
+  saveUpdate,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

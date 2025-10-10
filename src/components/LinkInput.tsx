@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import PlatformDropDown from "./PlatformDropDown";
 import { useState } from "react";
+import { saveUpdate } from "../features/authSlice";
 
 export default function LinkInput({
   id,
@@ -18,6 +20,8 @@ export default function LinkInput({
     img: "/images/icon-github.svg",
     placeholder: "e.g. https://www.github.com/johnappleseed",
   });
+  const dispatch = useDispatch();
+
   return (
     <div
       className="p-[2rem] rounded-[1.2rem] bg-[#fafafa]
@@ -78,6 +82,7 @@ export default function LinkInput({
               placeholder={chosenPlatform.placeholder}
               className="text-[1.6rem] text-[#333] leading-[2.4rem]
               w-full outline-none"
+              onChange={() => dispatch(saveUpdate())}
             />
           </div>
           {error && <p>{error}</p>}
