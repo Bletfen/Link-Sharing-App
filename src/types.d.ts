@@ -3,6 +3,7 @@ interface ILinkData {
   url: string;
   platform: string;
   img: string;
+  bg: string;
 }
 
 interface ILinkItem {
@@ -10,6 +11,7 @@ interface ILinkItem {
   url: string;
   platform: string;
   img: string;
+  bg: string;
 }
 
 interface ILinkForm {
@@ -21,7 +23,7 @@ interface LinkInputProps {
   index: number;
   register: UseFormRegisterReturn;
   error?: string;
-  onPlatformChange: (platfrom: string, img: string) => void;
+  onPlatformChange: (platfrom: string, img: string, bg: string) => void;
   removeLink: (id: string) => void;
 }
 
@@ -38,5 +40,5 @@ interface IPlatformDropDownProps {
       placeholder: string;
     }>
   >;
-  onPlatformChange: (platfrom: string, img: string) => void;
+  onPlatformChange: (platfrom: string, img: string, bg: string) => void;
 }

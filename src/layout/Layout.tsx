@@ -9,7 +9,7 @@ export default function Layout() {
     if (!user) {
       navigate("/login");
     }
-    if (localStorage.getItem("currentUser")) {
+    if (user) {
       navigate("/customize-links");
     }
   }, []);

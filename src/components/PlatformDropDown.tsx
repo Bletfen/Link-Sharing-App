@@ -48,7 +48,7 @@ export default function PlatformDropDown({
                     placeholder: item.placeholder,
                   };
                   setChosenPlatform(selected);
-                  onPlatformChange(item.name, item.img);
+                  onPlatformChange(item.name, item.img, item.background);
                   setShowDropDown(false);
                 }}
               >

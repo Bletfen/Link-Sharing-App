@@ -5,6 +5,7 @@ export interface Link {
   platform: string;
   url: string;
   img: string;
+  bg: string;
 }
 
 interface User {

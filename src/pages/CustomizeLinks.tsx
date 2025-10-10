@@ -31,6 +31,7 @@ export default function CustomizeLinks() {
         setValue(`links.${index}.platform`, link.platform);
         setValue(`links.${index}.url`, link.url);
         setValue(`links.${index}.img`, link.img);
+        setValue(`links.${index}.bg`, link.bg);
       });
     }
   }, [links, setValue]);
@@ -43,6 +44,7 @@ export default function CustomizeLinks() {
       platform: "GitHub",
       url: "",
       img: "/images/icon-github.svg",
+      bg: "#1a1a1a",
     };
     setValue("links", [...linksWatch, newLink]);
   };
@@ -86,9 +88,14 @@ export default function CustomizeLinks() {
                     },
                   })}
                   error={errors.links?.[index]?.url?.message}
-                  onPlatformChange={(platfrom: string, img: string) => {
+                  onPlatformChange={(
+                    platfrom: string,
+                    img: string,
+                    bg: string
+                  ) => {
                     setValue(`links.${index}.platform`, platfrom);
                     setValue(`links.${index}.img`, img);
+                    setValue(`links.${index}.bg`, bg);
                     dispatch(saveUpdate());
                   }}
                   removeLink={removeLink}

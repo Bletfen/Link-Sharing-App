@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BasicInput from "./BasicInput";
 import type { RootState } from "../store";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { saveUpdate, updateInitials } from "../features/authSlice";
+import { updateInitials } from "../features/authSlice";
 
 interface IFormInputs {
   firstName: string;
