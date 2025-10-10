@@ -96,9 +96,26 @@ export const loginSlice = createSlice({
         localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
       },
     },
+    updateImg(state, action) {
+      if (!state.currentUser) return;
+      const img = action.payload;
+      state.currentUser.avatar = img;
+      const userIndex = state.users.findIndex(
+        (user) => user.id === state.currentUser?.id
+      );
+      if (userIndex !== -1) {
+        state.users[userIndex] = {
+          ...state.users[userIndex],
+          avatar: img,
+        };
+      }
+      localStorage.setItem("users", JSON.stringify(state.users));
+      localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+    },
   },
 });
 
-export const { login, createUser, logout, updateLinkData } = loginSlice.actions;
+export const { login, createUser, logout, updateLinkData, updateImg } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -110,14 +110,14 @@ export default function Login_SignUp() {
                 if (!isLogin) {
                   return true;
                 }
-                const userExists = users.find((u) => u.password === value);
-                if (!userExists) {
+                const email = watch("email");
+                const user = users.find((u) => u.email === email);
+
+                if (!user) return;
+                if (user.password !== value) {
                   return "Incorrect Password";
                 }
-                const correctUser = userExists.email === watch("email");
-                if (!correctUser) {
-                  return "Incorrect Password";
-                }
+                return true;
               },
             })}
             error={errors.password?.message}
