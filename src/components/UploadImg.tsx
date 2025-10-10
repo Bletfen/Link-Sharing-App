@@ -20,13 +20,25 @@ export default function UploadImg() {
   };
 
   return (
-    <div className="p-[2rem]">
-      <p>Profile picture</p>
-      <div className="bg-[#efebff] w-[19.3rem] h-[19.3rem] rounded-[1.2rem]">
+    <div
+      className="p-[2rem] rounded-[1.2rem] bg-[#fafafa]
+      flex flex-col items-start"
+    >
+      <p
+        className="text-[1.6rem] leading-[2.4rem] text-[#737373]
+        mb-[1.6rem]"
+      >
+        Profile picture
+      </p>
+      <div
+        className="bg-[#efebff] w-[19.3rem] h-[19.3rem] rounded-[1.2rem]
+        mb-[2.4rem]"
+      >
         <label
           htmlFor="uploadImg"
           className="w-full h-full
-          flex items-center justify-center cursor-pointer"
+          flex items-center justify-center cursor-pointer
+          "
         >
           {!userAvatar ? (
             <div className="flex flex-col gap-[0.8rem]">
@@ -35,17 +47,29 @@ export default function UploadImg() {
                 alt="upload-img-icon"
                 className="self-center"
               />
-              <p>+ Upload Image</p>
+              <p
+                className="text-[1.6rem] leading-[2.4rem] font-semibold
+                text-[#633cff]"
+              >
+                + Upload Image
+              </p>
             </div>
           ) : (
             <div
               className={`w-full h-full flex justify-center items-center
               group relative`}
             >
-              <img src={userAvatar} alt="user-img" />
+              <img
+                src={userAvatar}
+                alt="user-img"
+                className="rounded-[1.2rem] w-full h-full
+                "
+              />
               <div
                 className="absolute hidden group-hover:flex flex-col 
-                gap-[0.8rem] items-center justify-center"
+                gap-[0.8rem] items-center justify-center
+                bg-black/50 w-full h-full rounded-[1.2rem]
+                "
               >
                 <svg
                   width="34"
@@ -59,7 +83,12 @@ export default function UploadImg() {
                     fill="white"
                   />
                 </svg>
-                <p>Change Image</p>
+                <p
+                  className="text-[1.6rem] leading-[2.4rem] font-semibold
+                  text-white"
+                >
+                  Change Image
+                </p>
               </div>
             </div>
           )}
@@ -72,6 +101,9 @@ export default function UploadImg() {
           />
         </label>
       </div>
+      <p className="text-[1.2rem] leading-[1.8rem] text-[#737373]">
+        Image must be below 1024x1024px. Use PNG or JPG format.
+      </p>
     </div>
   );
 }
