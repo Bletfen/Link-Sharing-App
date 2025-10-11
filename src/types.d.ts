@@ -25,6 +25,8 @@ interface LinkInputProps {
   error?: string;
   onPlatformChange: (platfrom: string, img: string, bg: string) => void;
   removeLink: (id: string) => void;
+  currentPlatform: string;
+  currentImg: string;
 }
 
 interface IPlatformDropDownProps {

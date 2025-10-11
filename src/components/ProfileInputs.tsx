@@ -30,7 +30,7 @@ export default function ProfileInputs() {
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     dispatch(updateInitials(data.firstName, data.lastName, data.email));
   };
-  console.log(currentUserDetails);
+
   return (
     <form
       id="updateInitials"

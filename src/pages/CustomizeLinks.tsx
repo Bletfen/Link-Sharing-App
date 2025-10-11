@@ -99,6 +99,8 @@ export default function CustomizeLinks() {
                     dispatch(saveUpdate());
                   }}
                   removeLink={removeLink}
+                  currentPlatform={link.platform}
+                  currentImg={link.img}
                 />
               </div>
             ))}

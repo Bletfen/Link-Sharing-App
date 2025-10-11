@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import PlatformDropDown from "./PlatformDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { saveUpdate } from "../features/authSlice";
 
 export default function LinkInput({
@@ -10,17 +10,28 @@ export default function LinkInput({
   error,
   onPlatformChange,
   removeLink,
+  currentPlatform,
+  currentImg,
 }: LinkInputProps) {
   const [chosenPlatform, setChosenPlatform] = useState<{
     name: string;
     img: string;
     placeholder: string;
   }>({
-    name: "GitHub",
-    img: "/images/icon-github.svg",
+    name: currentPlatform || "GitHub",
+    img: currentImg || "/images/icon-github.svg",
     placeholder: "e.g. https://www.github.com/johnappleseed",
   });
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (currentPlatform && currentImg) {
+      setChosenPlatform({
+        name: currentPlatform || "GitHub",
+        img: currentImg || "/images/icon-github.svg",
+        placeholder: `e.g. ${currentPlatform || "GitHub"} profile URL`,
+      });
+    }
+  }, [currentPlatform, currentImg]);
 
   return (
     <div

@@ -28,9 +28,13 @@ export default function Preview() {
       </div>
       <div className="flex flex-col gap-[2rem]">
         {currentUserDetails?.links.map((link) => (
-          <div
+          <a
             key={link.id}
-            className={`p-[1.6rem] bg-black flex justify-between items-center`}
+            href={link.url}
+            target="_blank"
+            className="p-[1.6rem] flex justify-between items-center
+              w-[27.3rem] rounded-[0.8rem] cursor-pointer"
+            style={{ background: `${link.bg}` }}
           >
             <div className="flex items-center gap-[0.8rem]">
               <img
@@ -54,7 +58,7 @@ export default function Preview() {
                 fill="white"
               />
             </svg>
-          </div>
+          </a>
         ))}
       </div>
     </div>

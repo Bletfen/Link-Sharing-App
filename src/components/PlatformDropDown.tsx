@@ -6,7 +6,6 @@ export default function PlatformDropDown({
   onPlatformChange,
 }: IPlatformDropDownProps) {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
-  console.log(PlatfromsData.platfroms.length - 1);
   return (
     <div className="">
       <div

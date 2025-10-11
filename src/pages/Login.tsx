@@ -46,16 +46,23 @@ export default function Login_SignUp() {
   const users = useSelector((store: RootState) => store.authMode.users);
 
   return (
-    <div className="flex flex-col p-[3.2rem]">
+    <div
+      className="flex flex-col p-[3.2rem]
+      md:items-center md:justify-center md:min-h-screen
+      md:w-[39rem] md:mx-auto md:p-[unset]"
+    >
       <div
         className="flex items-cente gap-[0.75rem]
-        mb-[6.4rem]"
+        mb-[6.4rem] md:mb-[9.85rem]"
       >
         <img src={LogoIcon} alt="logo-icon" />
       </div>
-      <div>
+      <div className="md:w-full">
         <div className="flex flex-col gap-[0.8rem] mb-[4rem]">
-          <h1 className="text-[2.4rem] font-bold text-[#333] leading-[2.4rem]">
+          <h1
+            className="text-[2.4rem] font-bold text-[#333] leading-[2.4rem]
+            md:text-[3.2rem] md:leading-[4.8rem]"
+          >
             {isLogin ? "Login" : "Create account"}
           </h1>
           <p className="text-[1.6rem] text-[#737373] leading-[2.4rem]">
@@ -66,7 +73,8 @@ export default function Login_SignUp() {
         </div>
 
         <form
-          className="flex flex-col gap-[2.4rem]"
+          className="flex flex-col gap-[2.4rem] md:w-full
+          "
           onSubmit={handleSubmit(onSubmit)}
         >
           <Input
@@ -150,9 +158,12 @@ export default function Login_SignUp() {
           >
             {isLogin ? "Login" : "Create new account"}
           </button>
-          <div className="text-[1.6rem] leading-[2.4rem] text-center">
+          <div
+            className="text-[1.6rem] leading-[2.4rem] text-center
+            md:flex md:justify-center"
+          >
             {isLogin ? (
-              <p className="text-[#737373]">
+              <p className="text-[#737373] md:flex md:gap-[0.4rem]">
                 Don't have an account? <br />
                 <p
                   className="text-[#633cff] cursor-pointer"
@@ -162,7 +173,7 @@ export default function Login_SignUp() {
                 </p>
               </p>
             ) : (
-              <p className="text-[#737373]">
+              <p className="text-[#737373] md:flex md:gap-[0.4rem]">
                 Already have an account? <br />
                 <p
                   className="text-[#633cff] cursor-pointer"
