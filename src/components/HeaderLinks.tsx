@@ -7,7 +7,7 @@ export default function HeaderLinks() {
   const profSettingsPath = location.pathname.includes("/profile-settings");
 
   return (
-    <div className="flex">
+    <div className="flex items-center 2xl:gap-[1.6rem]">
       <div
         className={`py-[1.1rem] px-[2.7rem] ${
           linksPath

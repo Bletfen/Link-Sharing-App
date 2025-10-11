@@ -61,11 +61,12 @@ export default function CustomizeLinks() {
   return (
     <div
       className="p-[1.6rem] bg-[#fafafa] min-h-screen
-      md:p-[2.4rem]"
+      md:p-[2.4rem] md:p-[unset]
+      w-full md:mx-auto 2xl:mx-[unset]"
     >
       <div
-        className="bg-white rounded-t[1.2rem] p-[2.4rem]
-        md:p-[4rem]"
+        className="bg-white rounded-t-[1.2rem] p-[2.4rem]
+        md:p-[4rem] xl:min-h-[73.8rem]"
       >
         <AddLink addLinkField={addLinkField} />
 
@@ -111,7 +112,7 @@ export default function CustomizeLinks() {
           ))}
         </form>
       </div>
-      <div className="bg-white">
+      <div className="bg-white rounded-b-[1.2rem]">
         <div className="w-full h-px bg-[#d9d9d9]"></div>
         <SaveButton formId={"updateLinks"} />
       </div>

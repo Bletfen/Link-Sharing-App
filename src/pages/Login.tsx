@@ -49,7 +49,8 @@ export default function Login_SignUp() {
     <div
       className="flex flex-col p-[3.2rem]
       md:items-center md:justify-center md:min-h-screen
-      md:w-[39rem] md:mx-auto md:p-[unset]"
+      md:w-[39rem] md:mx-auto md:p-[unset]
+      "
     >
       <div
         className="flex items-cente gap-[0.75rem]
@@ -57,7 +58,10 @@ export default function Login_SignUp() {
       >
         <img src={LogoIcon} alt="logo-icon" />
       </div>
-      <div className="md:w-full">
+      <div
+        className="md:w-[47.6rem] md:p-[4rem] rounded-[1.2rem]
+        md:bg-white"
+      >
         <div className="flex flex-col gap-[0.8rem] mb-[4rem]">
           <h1
             className="text-[2.4rem] font-bold text-[#333] leading-[2.4rem]
@@ -153,7 +157,9 @@ export default function Login_SignUp() {
           <button
             className="py-[1.1rem] rounded-[0.8rem] bg-[#633cff]
             text-[1.6rem] leading-[2.4rem] font-semibold text-white
-            cursor-pointer"
+            cursor-pointer transition-all duration-300
+            hover:shadow-[0_0_3.2rem_0_rgba(99,60,255,0.25)]
+            hover:bg-[#beadff]"
             type="submit"
           >
             {isLogin ? "Login" : "Create new account"}

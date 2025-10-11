@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function PreviewHeader() {
   return (
-    <div className="md:p-[2.4rem]">
+    <div className="md:p-[2.4rem] w-full">
       <div
         className="flex pl-[2.4rem] py-[1.6rem] pr-[1.6rem] justify-between
       md:bg-white rounded-[1.2rem]"

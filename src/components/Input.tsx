@@ -26,9 +26,12 @@ export default function Input({
         {label}
       </label>
       <div
-        className="flex gap-[1.2rem] items-center 
+        className={`flex gap-[1.2rem] items-center 
              py-[1.2rem] px-[1.6rem]
-             border border-[#d9d9d9] rounded-[0.8rem]"
+             border rounded-[0.8rem]
+             focus-within:border-[#633cff]
+             focus-within:shadow-[0_0_3.2rem_0_rgba(99,60,255,0.25)]
+             ${error ? "border-[#ff3939]" : "border-[#d9d9d9]"}`}
       >
         <img src={svg} alt="icon" />
         <input

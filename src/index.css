@@ -7,4 +7,9 @@ html {
 
 body {
   font-family: "Instrument Sans", sans-serif;
+  background-color: #fafafa;
+}
+
+@theme {
+  --breakpoint-2xl: 90rem;
 }

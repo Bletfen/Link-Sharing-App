@@ -26,7 +26,7 @@ export default function BasicInput({
       </label>
       <div
         className="px-[1.6rem] py-[1.2rem] border border-[#d9d9d9]
-        rounded-[0.8rem] md:w-[34rem] xl:w-[43.2rem]"
+        rounded-[0.8rem] md:w-[34rem] 2xl:w-[43.2rem]"
       >
         <div className="flex items-center justify-between">
           <input

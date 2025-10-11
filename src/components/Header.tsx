@@ -7,10 +7,14 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <div className="md:p-[2.4rem]">
+    <div
+      className="md:p-[2.4rem] bg-white
+      md:mb-[2.4rem]"
+    >
       <div
         className="py-[1.6rem] pl-[2.4rem] pr-[1.6rem]
-      flex items-center justify-between md:p"
+      flex items-center justify-between
+      md:p-[unset]"
       >
         <img src={Logo} alt="logo-icon" className="block md:hidden" />
         <img src={LogoIcon} alt="logo-icon" className="hidden md:block" />

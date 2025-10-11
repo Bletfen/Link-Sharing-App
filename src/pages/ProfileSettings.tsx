@@ -4,10 +4,15 @@ import UploadImg from "../components/UploadImg";
 
 export default function ProfileSettings() {
   return (
-    <div className="p-[1.6rem] md:p-[2.4rem]">
+    <div
+      className="p-[1.6rem] md:p-[2.4rem] xl:p-[unset]
+      w-full
+    "
+    >
       <div
         className="flex flex-col gap-[4rem] p-[2.4rem]
-        md:p-[4rem]"
+        md:p-[4rem] bg-white rounded-t-[1.2rem]
+        xl:min-h-[73.8rem]"
       >
         <div className="flex flex-col gap-[0.8rem]">
           <h1
@@ -25,8 +30,10 @@ export default function ProfileSettings() {
           <ProfileInputs />
         </div>
       </div>
-      <div className="w-full h-px bg-[#d9d9d9] mt-[2.4rem]"></div>
-      <SaveButton formId={"updateInitials"} />
+      <div className="bg-white rounded-b-[1.2rem]">
+        <div className="w-full h-px bg-[#d9d9d9]"></div>
+        <SaveButton formId={"updateInitials"} />
+      </div>
     </div>
   );
 }

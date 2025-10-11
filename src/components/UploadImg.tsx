@@ -106,7 +106,7 @@ export default function UploadImg() {
         </div>
         <p
           className="text-[1.2rem] leading-[1.8rem] text-[#737373]
-          md:w-[12.7rem] xl:w-[21.5rem]"
+          md:w-[12.7rem] 2xl:w-[21.5rem]"
         >
           Image must be below 1024x1024px. Use PNG or JPG format.
         </p>
