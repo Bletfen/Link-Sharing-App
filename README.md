@@ -2,7 +2,7 @@
 
 A modern, responsive web application for managing and sharing your social media links in one place. Built with React, TypeScript, and Redux Toolkit.
 
-![Link Sharing App](https://link-sharing-app-aqsm.vercel.app/)
+🔗 **[Live Demo](https://link-sharing-app-aqsm.vercel.app/)**
 
 ## ✨ Features
 
