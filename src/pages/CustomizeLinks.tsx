@@ -59,55 +59,61 @@ export default function CustomizeLinks() {
   };
 
   return (
-    <div>
-      <div className="p-[1.6rem] bg-[#fafafa] min-h-screen">
-        <div className="bg-white rounded-[1.2rem]">
-          <AddLink addLinkField={addLinkField} />
+    <div
+      className="p-[1.6rem] bg-[#fafafa] min-h-screen
+      md:p-[2.4rem]"
+    >
+      <div
+        className="bg-white rounded-t[1.2rem] p-[2.4rem]
+        md:p-[4rem]"
+      >
+        <AddLink addLinkField={addLinkField} />
 
-          {linksWatch?.length === 0 && <EmptyLinks />}
+        {linksWatch?.length === 0 && <EmptyLinks />}
 
-          <form
-            id="updateLinks"
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-[2.4rem]"
-          >
-            {linksWatch?.map((link, index) => (
-              <div key={link.id} className="px-[2.4rem]">
-                <LinkInput
-                  id={link.id}
-                  index={index}
-                  register={register(`links.${index}.url` as Path<ILinkForm>, {
-                    required: "Can't be empty",
-                    validate: (url) => {
-                      const currentPlatform =
-                        watch(`links.${index}.platform`) || "GitHub";
-                      return (
-                        linkValidators[currentPlatform]?.test(url as string) ||
-                        "Please check the URL"
-                      );
-                    },
-                  })}
-                  error={errors.links?.[index]?.url?.message}
-                  onPlatformChange={(
-                    platfrom: string,
-                    img: string,
-                    bg: string
-                  ) => {
-                    setValue(`links.${index}.platform`, platfrom);
-                    setValue(`links.${index}.img`, img);
-                    setValue(`links.${index}.bg`, bg);
-                    dispatch(saveUpdate());
-                  }}
-                  removeLink={removeLink}
-                  currentPlatform={link.platform}
-                  currentImg={link.img}
-                />
-              </div>
-            ))}
-          </form>
-          <div className="w-full h-px bg-[#d9d9d9] mt-[2.4rem]"></div>
-          <SaveButton formId={"updateLinks"} />
-        </div>
+        <form
+          id="updateLinks"
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-[2.4rem]"
+        >
+          {linksWatch?.map((link, index) => (
+            <div key={link.id}>
+              <LinkInput
+                id={link.id}
+                index={index}
+                register={register(`links.${index}.url` as Path<ILinkForm>, {
+                  required: "Can't be empty",
+                  validate: (url) => {
+                    const currentPlatform =
+                      watch(`links.${index}.platform`) || "GitHub";
+                    return (
+                      linkValidators[currentPlatform]?.test(url as string) ||
+                      "Please check the URL"
+                    );
+                  },
+                })}
+                error={errors.links?.[index]?.url?.message}
+                onPlatformChange={(
+                  platfrom: string,
+                  img: string,
+                  bg: string
+                ) => {
+                  setValue(`links.${index}.platform`, platfrom);
+                  setValue(`links.${index}.img`, img);
+                  setValue(`links.${index}.bg`, bg);
+                  dispatch(saveUpdate());
+                }}
+                removeLink={removeLink}
+                currentPlatform={link.platform}
+                currentImg={link.img}
+              />
+            </div>
+          ))}
+        </form>
+      </div>
+      <div className="bg-white">
+        <div className="w-full h-px bg-[#d9d9d9]"></div>
+        <SaveButton formId={"updateLinks"} />
       </div>
     </div>
   );
