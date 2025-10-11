@@ -22,88 +22,95 @@ export default function UploadImg() {
   return (
     <div
       className="p-[2rem] rounded-[1.2rem] bg-[#fafafa]
-      flex flex-col items-start"
+      flex flex-col items-start
+      md:flex-row md:items-center md:justify-between
+      md:gap-[1.6rem]"
     >
       <p
         className="text-[1.6rem] leading-[2.4rem] text-[#737373]
-        mb-[1.6rem]"
+        mb-[1.6rem] md:mb-[unset] md:w-[24rem]"
       >
         Profile picture
       </p>
-      <div
-        className="bg-[#efebff] w-[19.3rem] h-[19.3rem] rounded-[1.2rem]
-        mb-[2.4rem]"
-      >
-        <label
-          htmlFor="uploadImg"
-          className="w-full h-full
+      <div className="md:flex md:items-center md:gap-[2.4rem]">
+        <div
+          className="bg-[#efebff] w-[19.3rem] h-[19.3rem] rounded-[1.2rem]
+        mb-[2.4rem] md:mb-[unset]"
+        >
+          <label
+            htmlFor="uploadImg"
+            className="w-full h-full
           flex items-center justify-center cursor-pointer
           "
-        >
-          {!userAvatar ? (
-            <div className="flex flex-col gap-[0.8rem]">
-              <img
-                src={UploadImgIcon}
-                alt="upload-img-icon"
-                className="self-center"
-              />
-              <p
-                className="text-[1.6rem] leading-[2.4rem] font-semibold
+          >
+            {!userAvatar ? (
+              <div className="flex flex-col gap-[0.8rem]">
+                <img
+                  src={UploadImgIcon}
+                  alt="upload-img-icon"
+                  className="self-center"
+                />
+                <p
+                  className="text-[1.6rem] leading-[2.4rem] font-semibold
                 text-[#633cff]"
-              >
-                + Upload Image
-              </p>
-            </div>
-          ) : (
-            <div
-              className={`w-full h-full flex justify-center items-center
-              group relative`}
-            >
-              <img
-                src={userAvatar}
-                alt="user-img"
-                className="rounded-[1.2rem] w-full h-full
-                "
-              />
+                >
+                  + Upload Image
+                </p>
+              </div>
+            ) : (
               <div
-                className="absolute hidden group-hover:flex flex-col 
+                className={`w-full h-full flex justify-center items-center
+              group relative`}
+              >
+                <img
+                  src={userAvatar}
+                  alt="user-img"
+                  className="rounded-[1.2rem] w-full h-full
+                "
+                />
+                <div
+                  className="absolute hidden group-hover:flex flex-col 
                 gap-[0.8rem] items-center justify-center
                 bg-black/50 w-full h-full rounded-[1.2rem]
                 "
-              >
-                <svg
-                  width="34"
-                  height="28"
-                  viewBox="0 0 34 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    d="M30.75 0.25H3.25C2.58696 0.25 1.95107 0.513392 1.48223 0.982233C1.01339 1.45107 0.75 2.08696 0.75 2.75V25.25C0.75 25.913 1.01339 26.5489 1.48223 27.0178C1.95107 27.4866 2.58696 27.75 3.25 27.75H30.75C31.413 27.75 32.0489 27.4866 32.5178 27.0178C32.9866 26.5489 33.25 25.913 33.25 25.25V2.75C33.25 2.08696 32.9866 1.45107 32.5178 0.982233C32.0489 0.513392 31.413 0.25 30.75 0.25ZM30.75 2.75V18.8047L26.6766 14.7328C26.4444 14.5006 26.1688 14.3164 25.8654 14.1907C25.5621 14.0651 25.2369 14.0004 24.9086 14.0004C24.5802 14.0004 24.2551 14.0651 23.9518 14.1907C23.6484 14.3164 23.3728 14.5006 23.1406 14.7328L20.0156 17.8578L13.1406 10.9828C12.6718 10.5143 12.0362 10.2512 11.3734 10.2512C10.7107 10.2512 10.075 10.5143 9.60625 10.9828L3.25 17.3391V2.75H30.75ZM3.25 20.875L11.375 12.75L23.875 25.25H3.25V20.875ZM30.75 25.25H27.4109L21.7859 19.625L24.9109 16.5L30.75 22.3406V25.25ZM19.5 9.625C19.5 9.25416 19.61 8.89165 19.816 8.58331C20.022 8.27496 20.3149 8.03464 20.6575 7.89273C21.0001 7.75081 21.3771 7.71368 21.7408 7.78603C22.1045 7.85837 22.4386 8.03695 22.7008 8.29917C22.963 8.5614 23.1416 8.89549 23.214 9.2592C23.2863 9.62292 23.2492 9.99992 23.1073 10.3425C22.9654 10.6851 22.725 10.978 22.4167 11.184C22.1084 11.39 21.7458 11.5 21.375 11.5C20.8777 11.5 20.4008 11.3025 20.0492 10.9508C19.6975 10.5992 19.5 10.1223 19.5 9.625Z"
-                    fill="white"
-                  />
-                </svg>
-                <p
-                  className="text-[1.6rem] leading-[2.4rem] font-semibold
+                  <svg
+                    width="34"
+                    height="28"
+                    viewBox="0 0 34 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M30.75 0.25H3.25C2.58696 0.25 1.95107 0.513392 1.48223 0.982233C1.01339 1.45107 0.75 2.08696 0.75 2.75V25.25C0.75 25.913 1.01339 26.5489 1.48223 27.0178C1.95107 27.4866 2.58696 27.75 3.25 27.75H30.75C31.413 27.75 32.0489 27.4866 32.5178 27.0178C32.9866 26.5489 33.25 25.913 33.25 25.25V2.75C33.25 2.08696 32.9866 1.45107 32.5178 0.982233C32.0489 0.513392 31.413 0.25 30.75 0.25ZM30.75 2.75V18.8047L26.6766 14.7328C26.4444 14.5006 26.1688 14.3164 25.8654 14.1907C25.5621 14.0651 25.2369 14.0004 24.9086 14.0004C24.5802 14.0004 24.2551 14.0651 23.9518 14.1907C23.6484 14.3164 23.3728 14.5006 23.1406 14.7328L20.0156 17.8578L13.1406 10.9828C12.6718 10.5143 12.0362 10.2512 11.3734 10.2512C10.7107 10.2512 10.075 10.5143 9.60625 10.9828L3.25 17.3391V2.75H30.75ZM3.25 20.875L11.375 12.75L23.875 25.25H3.25V20.875ZM30.75 25.25H27.4109L21.7859 19.625L24.9109 16.5L30.75 22.3406V25.25ZM19.5 9.625C19.5 9.25416 19.61 8.89165 19.816 8.58331C20.022 8.27496 20.3149 8.03464 20.6575 7.89273C21.0001 7.75081 21.3771 7.71368 21.7408 7.78603C22.1045 7.85837 22.4386 8.03695 22.7008 8.29917C22.963 8.5614 23.1416 8.89549 23.214 9.2592C23.2863 9.62292 23.2492 9.99992 23.1073 10.3425C22.9654 10.6851 22.725 10.978 22.4167 11.184C22.1084 11.39 21.7458 11.5 21.375 11.5C20.8777 11.5 20.4008 11.3025 20.0492 10.9508C19.6975 10.5992 19.5 10.1223 19.5 9.625Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <p
+                    className="text-[1.6rem] leading-[2.4rem] font-semibold
                   text-white"
-                >
-                  Change Image
-                </p>
+                  >
+                    Change Image
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
-          <input
-            type="file"
-            className="hidden"
-            id="uploadImg"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </label>
+            )}
+            <input
+              type="file"
+              className="hidden"
+              id="uploadImg"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </label>
+        </div>
+        <p
+          className="text-[1.2rem] leading-[1.8rem] text-[#737373]
+          md:w-[12.7rem] xl:w-[21.5rem]"
+        >
+          Image must be below 1024x1024px. Use PNG or JPG format.
+        </p>
       </div>
-      <p className="text-[1.2rem] leading-[1.8rem] text-[#737373]">
-        Image must be below 1024x1024px. Use PNG or JPG format.
-      </p>
     </div>
   );
 }

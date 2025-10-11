@@ -9,9 +9,14 @@ export default function ProfilePreview() {
   );
   console.log(currentUser);
   return (
-    <div>
+    <div className="md:bg-[#633cff] md:rounded-b-[3.2rem] md:h-[35.7rem]">
       <PreviewHeader />
-      <Preview />
+      <div
+        className="md:flex md:items-center md:justify-center
+        "
+      >
+        <Preview />
+      </div>
     </div>
   );
 }

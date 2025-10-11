@@ -8,7 +8,10 @@ export default function Preview() {
   return (
     <div
       className="flex flex-col mt-[6rem] items-center justify-center
-        gap-[5.6rem]"
+        gap-[5.6rem] md:bg-white md:w-[35rem]
+        md:rounded-[2.4rem] md:py-[4.8rem] md:px-[5.6rem]
+        md:shadow-[0_0_3.2rem_0_rgba(0,0,0,0.10)]
+        "
     >
       <div className="flex flex-col items-center gap-[2.5rem]">
         <img
@@ -18,10 +21,16 @@ export default function Preview() {
           w-[10.4rem] h-[10.4rem]"
         />
         <div className="flex flex-col items-center gap-[0.8rem]">
-          <h1 className="text-[3.2rem] text-[#333] font-bold leading-[4.8rem]">
+          <h1
+            className="text-[3.2rem] text-[#333] font-bold leading-[4.8rem]
+            "
+          >
             {currentUserDetails?.firstName} {currentUserDetails?.lastName}
           </h1>
-          <p className="text-[1.6rem] text-[#737373] leading-[2.4rem]">
+          <p
+            className="text-[1.6rem] text-[#737373] leading-[2.4rem]
+            "
+          >
             {currentUserDetails?.email}
           </p>
         </div>

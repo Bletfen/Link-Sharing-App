@@ -13,16 +13,20 @@ export default function BasicInput({
 }) {
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-col gap-[0.4rem]">
+    <div
+      className="flex flex-col gap-[0.4rem]
+      md:flex-row md:items-center md:justify-between"
+    >
       <label
         htmlFor={label}
-        className="text-[1.2rem] text-[#333] leading-[1.8rem]"
+        className="text-[1.2rem] text-[#333] leading-[1.8rem]
+        md:text-[#737373] md:text-[1.6rem]"
       >
         {label}
       </label>
       <div
         className="px-[1.6rem] py-[1.2rem] border border-[#d9d9d9]
-        rounded-[0.8rem]"
+        rounded-[0.8rem] md:w-[34rem] xl:w-[43.2rem]"
       >
         <div className="flex items-center justify-between">
           <input
