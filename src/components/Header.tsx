@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <div
       className="md:p-[2.4rem] bg-white
-      md:mb-[2.4rem]"
+      md:mb-[2.4rem] rounded-b-[1.2rem]"
     >
       <div
         className="py-[1.6rem] pl-[2.4rem] pr-[1.6rem]

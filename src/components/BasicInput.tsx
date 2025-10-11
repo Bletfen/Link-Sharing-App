@@ -25,8 +25,9 @@ export default function BasicInput({
         {label}
       </label>
       <div
-        className="px-[1.6rem] py-[1.2rem] border border-[#d9d9d9]
-        rounded-[0.8rem] md:w-[34rem] 2xl:w-[43.2rem]"
+        className={`px-[1.6rem] py-[1.2rem] border
+        rounded-[0.8rem] md:w-[34rem] 2xl:w-[43.2rem]
+        ${error ? "border-[#ff3939]" : "border-[#d9d9d9]"}`}
       >
         <div className="flex items-center justify-between">
           <input
@@ -35,10 +36,10 @@ export default function BasicInput({
             className="outline-none text-[1.6rem] text-[#333] leading-[2.4rem]"
             placeholder={
               label === "First Name*"
-                ? "Ben"
+                ? "e.g. John"
                 : label === "Last Name*"
-                ? "Wright"
-                : ""
+                ? "e.g. Appleseed"
+                : "e.g. email@example.com"
             }
             onChange={() => dispatch(saveUpdate())}
           />

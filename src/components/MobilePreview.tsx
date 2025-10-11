@@ -1,11 +1,23 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MobilePreview() {
-  const rectangleArray = [1, 2, 3, 4];
   const currentUser = useSelector(
     (store: RootState) => store.authMode.currentUser
   );
+  const navigate = useNavigate();
+  useEffect(() => {
+    const local = localStorage.getItem("currentUser");
+    if (!local) {
+      navigate("/login");
+    }
+  }, []);
+
+  if (!currentUser) {
+    return null;
+  }
   return (
     <div
       className="hidden w-[56rem] h-[83.4rem] p-[2.4rem]
@@ -64,9 +76,46 @@ export default function MobilePreview() {
             </div>
           </div>
           <div className="relative flex flex-col gap-[2rem]">
-            {rectangleArray.map(() => (
-              <div className="w-[23.7rem] h-[4.4rem] rounded-[0.8rem] bg-[#eee]"></div>
-            ))}
+            {[0, 1, 2, 3].map((index) => {
+              const link = currentUser?.links?.[index];
+              return (
+                <div key={index}>
+                  {!link ? (
+                    <div className="h-[4.4rem] w-[23.7rem] bg-[#eee] rounded-[0.8rem]"></div>
+                  ) : (
+                    <a
+                      href={link?.url}
+                      target="_blank"
+                      className="py-[1.1rem] px-[1.6rem] flex items-center justify-between rounded-[0.8rem]"
+                      style={{ background: link?.bg }}
+                    >
+                      <div className="flex items-center gap-[0.8rem]">
+                        <img
+                          src={link?.img}
+                          alt="platform-img"
+                          className="brightness-0 invert"
+                        />
+                        <p className="text-[1.2rem] leading-[1.8rem] text-white">
+                          {link?.platform}
+                        </p>
+                      </div>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2.66666 7.3333V8.66664H10.6667L6.99999 12.3333L7.94666 13.28L13.2267 7.99997L7.94666 2.71997L6.99999 3.66664L10.6667 7.3333H2.66666Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
